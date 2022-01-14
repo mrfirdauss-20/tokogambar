@@ -4,7 +4,9 @@
 
 Ketika seorang penjual ingin menjual gambarnya, pihak `TokoGambar` akan melakukan beberapa verifikasi untuk menguji bahwa gambar tersebut adalah otentik milik sang penjual. Salah satu langkahnya adalah mengecek apakah gambar tersebut sudah pernah dijual oleh orang lain di situs `TokoGambar` atau tidak.
 
-Jika gambar yang ingin dijual sudah pernah dijual oleh orang lain, maka gambar tersebut akan ditolak oleh pihak `TokoGambar`. Otentisitas dari suatu gambar ditentukan berdasarkan visualnya. Jika admin menganggap bahwa gambar tersebut mirip dengan gambar lain yang berada di situs `TokoGambar`, itu artinya gambar tersebut tidak otentik.
+Jika gambar yang ingin dijual sudah pernah dijual oleh orang lain, maka gambar tersebut akan ditolak oleh pihak `TokoGambar`.
+
+Keunikan dari suatu gambar ditentukan berdasarkan kesamaan visualnya. Jika admin menganggap bahwa gambar tersebut sama dengan gambar lain yang berada di situs `TokoGambar`, itu artinya gambar tersebut tidak unik.
 
 Pihak `TokoGambar` menggunakan sistem yang ada di repositori ini untuk mengecek otentisitas dari suatu gambar. Namun sayangnya sistem ini masih berupa prototipe, sehingga masih banyak perbaikan yang perlu dilakukan disana-sini.
 

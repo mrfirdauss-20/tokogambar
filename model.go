@@ -2,15 +2,18 @@ package main
 
 import (
 	"encoding/base64"
+	"encoding/json"
 	"errors"
+	"net/http"
 	"strings"
 )
 
 type ApiResp struct {
-	OK      bool        `json:"oke"`
-	Data    interface{} `json:"data,omitempty"`
-	ErrCode string      `json:"err,omitempty"`
-	Message string      `json:"msg,omitempty"`
+	StatusCode int         `json:"-"`
+	OK         bool        `json:"oke"`
+	Data       interface{} `json:"data,omitempty"`
+	ErrCode    string      `json:"err,omitempty"`
+	Message    string      `json:"msg,omitempty"`
 }
 
 func NewSuccessResp(data interface{}) ApiResp {
@@ -30,6 +33,14 @@ func NewErrorResp(err error) ApiResp {
 		ErrCode: e.ErrCode,
 		Message: e.Message,
 	}
+}
+
+func WriteAPIResp(w http.ResponseWriter, resp ApiResp) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(resp.StatusCode)
+
+	b, _ := json.Marshal(resp)
+	w.Write(b)
 }
 
 type searchReqBody struct {
@@ -57,4 +68,14 @@ func (rb searchReqBody) GetByte() ([]byte, error) {
 		return nil, NewErrBadRequest(err.Error())
 	}
 	return data, nil
+}
+
+type dbRecord struct {
+	FileName string
+	Hash     string
+}
+
+type similarImage struct {
+	FileName        string  `json:"filename"`
+	SimilarityScore float64 `json:"similarity_score"`
 }
