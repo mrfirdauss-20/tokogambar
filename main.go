@@ -19,7 +19,12 @@ func main() {
 		log.Fatalf("unable to initialize database due: %v", err)
 	}
 	// attach handler
+	http.Handle("/", http.FileServer(http.Dir("./web")))
 	http.HandleFunc("/similars", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			WriteAPIResp(w, NewErrorResp(NewErrNotFound()))
+			return
+		}
 		// parse request body
 		var rb searchReqBody
 		err := json.NewDecoder(r.Body).Decode(&rb)
@@ -48,6 +53,7 @@ func main() {
 		WriteAPIResp(w, NewSuccessResp(similarImages))
 	})
 	// start server
+	log.Printf("server is listening on %v", addr)
 	err = http.ListenAndServe(addr, nil)
 	if err != nil {
 		log.Fatalf("unable to start server due: %v", err)

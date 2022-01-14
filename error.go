@@ -23,6 +23,14 @@ func NewErrBadRequest(msg string) *Error {
 	}
 }
 
+func NewErrNotFound() *Error {
+	return &Error{
+		StatusCode: http.StatusNotFound,
+		ErrCode:    "ERR_NOT_FOUND",
+		Message:    "not found",
+	}
+}
+
 func NewErrInternalError(err error) *Error {
 	return &Error{
 		StatusCode: http.StatusInternalServerError,
