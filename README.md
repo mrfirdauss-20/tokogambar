@@ -16,19 +16,19 @@ Coba pikirkan hal-hal apa saja yang perlu diperbaiki dari sudut pandang bisnis `
 
 ## Pengerjaan Tantangan
 
-1. Fork repositori ini
-2. Analisis masalah dengan menggunakan sudut pandang bisnis `TokoGambar`
-3. Tulis masalah-masalah yang kamu temukan di `README.md` dan apa solusinya
-4. Implementasikan solusi dari masalah yang kamu temukan
-5. Jika ada masalah yang belum sempat kamu selesaikan, tetap tuliskan di `README.md`
-6. Bagikan link repositori hasil fork beserta CV kamu kepada kami
-
-## Tambahan Pustaka
-
-- [Perceptual Hash](http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html)
-- [Time Complexity Analysis](https://www.youtube.com/watch?v=fZc3ijGM0aM)
-- [Levenshtein Distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
+1. Fork repositori ini.
+2. Analisis masalah dengan menggunakan sudut pandang bisnis `TokoGambar`.
+3. Tulis masalah-masalah yang kamu temukan dan apa solusinya di `README.md`.
+4. Implementasikan solusi dari masalah yang kamu temukan.
+5. Tuliskan juga di `README.md` hal apa saja yang akan kamu lakukan jika kamu punya waktu lebih banyak untuk mengerjakan tantangan ini.
+6. Bagikan link repositori hasil fork beserta CV kamu kepada kami.
 
 ## Pertanyaan
 
 Jika ada hal-hal yang ingin ditanyakan, silakan buat issue di repositori ini.
+
+## Pustaka Menarik
+
+- [Perceptual Hash](http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html)
+- [Time Complexity Analysis](https://www.youtube.com/watch?v=fZc3ijGM0aM)
+- [Levenshtein Distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
