@@ -25,6 +25,22 @@ Coba pikirkan hal-hal apa saja yang perlu diperbaiki dari sudut pandang bisnis `
 5. Tuliskan juga di `README.md` hal apa saja yang akan kamu lakukan jika kamu punya waktu lebih banyak untuk mengerjakan tantangan ini.
 6. Bagikan link repositori hasil fork beserta CV kamu kepada kami.
 
+## Menjalankan Program
+
+Untuk menjalankan program, cukup ketik perintah berikut di terminal:
+
+```
+make run
+```
+
+Setelah program berjalan, kamu bisa akses programnya di `http://localhost:7124`. Kamu bisa menggunakan gambar-gambar yang ada di direktori [input](./input) untuk mencoba programnya.
+
+Kalau implementasimu program-mu sudah benar, seharusnya `input_1.jpg`, `input_2.jpg`, `input_3.jpg` semuanya akan memiliki hasil.
+
+> **Note:**
+>
+> Pastikan setidaknya Go versi 1.15 sudah terinstall di komputer kamu.
+
 ## Pertanyaan
 
 Jika ada hal-hal yang ingin ditanyakan, silakan buat issue di repositori ini.
