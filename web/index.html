@@ -7,6 +7,78 @@
     <title>Cek Gambar</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <div style="text-align: center;">
+        <div>
+            <img id="previewImage" width="200">
+        </div>
+        <br>
+        <div>
+            <input type="file" accept="image/*" id="inputFile" onchange="handleInputFile(this.files[0])">
+        </div>
+        <br>
+        <h3>Similar Images:</h3>
+        <div id="similarImages"></div>
+    </div>
+
+    <script>
+        function handleInputFile(file) {
+            const reader = new FileReader();
+            reader.onload = async function() {
+                // get image data
+                const imageData = reader.result;
+                // set image in preview
+                const previewImage = document.getElementById("previewImage");
+                previewImage.src = imageData;
+                // fetch similar images
+                const imgs = await fetchSimilarImages(imageData);
+                // update similar images DOM
+                await updateSimilarImagesDOM(imgs);
+            }
+            reader.readAsDataURL(file);
+        }
+
+        async function fetchSimilarImages(blob) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const response = await fetch("/similars", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            data: blob,
+                        })
+                    });
+                    jsonResp = await response.json();
+                    resolve(jsonResp.data);
+                } catch(e) {
+                    reject(e);
+                }
+            });
+        }
+
+        function updateSimilarImagesDOM(images) {
+            return new Promise((resolve) => {
+                // reset similar images containes
+                const domSimilarImages = document.getElementById("similarImages");
+                while (domSimilarImages.firstChild) {
+                    domSimilarImages.removeChild(domSimilarImages.firstChild);
+                }
+                // if there is no image just return
+                if (!images) {
+                    return
+                }
+                // fill in with the new ones
+                images.forEach((value) => {
+                    const node = document.createElement('div');
+                    node.innerHTML = `
+                        <img src="/images/${value.filename}" width="200">
+                        <p>${value.filename}</p>
+                    `
+                    domSimilarImages.appendChild(node);
+                });
+            });
+        }
+    </script>
 </body>
 </html>

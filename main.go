@@ -20,6 +20,7 @@ func main() {
 	}
 	// attach handler
 	http.Handle("/", http.FileServer(http.Dir("./web")))
+	http.Handle("/images/", http.StripPrefix("/images", http.FileServer(http.Dir("./images"))))
 	http.HandleFunc("/similars", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			WriteAPIResp(w, NewErrorResp(NewErrNotFound()))
@@ -89,7 +90,7 @@ func loadDB() ([]dbRecord, error) {
 
 func searchSimilarImages(dbRecords []dbRecord, data []byte) ([]similarImage, error) {
 	hashStr := getHash(data)
-	var simImages []similarImage
+	simImages := []similarImage{}
 	for _, record := range dbRecords {
 		if record.Hash == hashStr {
 			simImages = append(simImages, similarImage{

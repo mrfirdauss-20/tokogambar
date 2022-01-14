@@ -10,7 +10,7 @@ import (
 
 type ApiResp struct {
 	StatusCode int         `json:"-"`
-	OK         bool        `json:"oke"`
+	OK         bool        `json:"ok"`
 	Data       interface{} `json:"data,omitempty"`
 	ErrCode    string      `json:"err,omitempty"`
 	Message    string      `json:"msg,omitempty"`
@@ -18,8 +18,9 @@ type ApiResp struct {
 
 func NewSuccessResp(data interface{}) ApiResp {
 	return ApiResp{
-		OK:   true,
-		Data: data,
+		StatusCode: http.StatusOK,
+		OK:         true,
+		Data:       data,
 	}
 }
 
@@ -29,9 +30,10 @@ func NewErrorResp(err error) ApiResp {
 		e = NewErrInternalError(err)
 	}
 	return ApiResp{
-		OK:      false,
-		ErrCode: e.ErrCode,
-		Message: e.Message,
+		StatusCode: e.StatusCode,
+		OK:         false,
+		ErrCode:    e.ErrCode,
+		Message:    e.Message,
 	}
 }
 
