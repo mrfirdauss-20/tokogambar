@@ -30,16 +30,18 @@ Coba pikirkan hal-hal apa saja yang perlu diperbaiki dari sudut pandang bisnis `
 Untuk menjalankan program, cukup ketik perintah berikut di terminal:
 
 ```
-make run
+go run *.go
 ```
 
 Setelah program berjalan, kamu bisa akses programnya di `http://localhost:7124`. Kamu bisa menggunakan gambar-gambar yang ada di direktori [input](./input) untuk mencoba programnya.
 
-Kalau implementasimu program-mu sudah benar, seharusnya `input_1.jpg`, `input_2.jpg`, `input_3.jpg` semuanya akan memiliki hasil.
+Pastikan setidaknya `Go v1.15` sudah terinstall di komputer kamu.
 
 > **Note:**
 >
-> Pastikan setidaknya Go versi 1.15 sudah terinstall di komputer kamu.
+> Implementasi program yang ada di repositori ini masih belum benar. Salah satu indikasinya adalah ketika kamu mencoba gambar `input_1.jpg` & `input_2.jpg` sebagai input di program maka akan keluar hasilnya, sementara kalau kamu coba gambar `input_3.jpg` tidak akan keluar apa-apa.
+>
+> Kalau implementasi program kamu sudah benar, seharusnya `input_3.jpg` juga akan mengeluarkan hasil.
 
 ## Pertanyaan
 
