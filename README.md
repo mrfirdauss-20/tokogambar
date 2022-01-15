@@ -2,11 +2,17 @@
 
 `TokoGambar` adalah sebuah platform dimana orang bisa menjual gambar yang mereka buat dengan harga tinggi. Gambar itu bisa berupa gambar apapun: wallpaper, fanart, komik, dan lain sebagainya.
 
-Ketika seorang penjual ingin menjual gambarnya, pihak `TokoGambar` akan melakukan beberapa verifikasi untuk menguji bahwa gambar tersebut adalah otentik milik sang penjual. Salah satu langkahnya adalah mengecek apakah gambar tersebut sudah pernah dijual oleh orang lain di situs `TokoGambar` atau tidak.
+Ketika seorang penjual ingin menjual gambarnya, pihak `TokoGambar` akan melakukan beberapa verifikasi untuk menguji bahwa gambar tersebut adalah otentik milik sang penjual. Salah satu langkahnya adalah dengan mengecek apakah gambar tersebut replika dari salah satu gambar yang terdapat di situs `TokoGambar` atau tidak.
 
-Jika gambar yang ingin dijual sudah pernah dijual oleh orang lain, maka gambar tersebut akan ditolak oleh pihak `TokoGambar`.
+Jika gambar tersebut adalah replika, maka gambar tersebut akan ditolak oleh pihak `TokoGambar`.
 
-Keunikan dari suatu gambar ditentukan berdasarkan kesamaan visualnya. Jika admin menganggap bahwa gambar tersebut sama secara visual dengan gambar lain yang berada di situs `TokoGambar`, itu artinya gambar tersebut tidak unik.
+Suatu gambar dikatakan replika dari gambar lain jika gambar tersebut terlihat sama persis secara visual dengan gambar yang direferensikan. Contoh kasusnya adalah [input_1.jpg](./input/input_1.jpg) & [input_3.jpg](./input/input_3.jpg):
+
+[<img src="./input/input_1.jpg" width="400"/>](./input/input_1.jpg) 
+
+[<img src="./input/input_3.jpg" width="400"/>](./input/input_3.jpg)
+
+Kedua gambar ini berbeda, namun keduanya memiliki visual yang kurang lebih sama.
 
 Pihak `TokoGambar` menggunakan sistem yang ada di repositori ini untuk mengecek otentisitas dari suatu gambar. Namun sayangnya sistem ini masih berupa prototipe, sehingga masih banyak perbaikan yang perlu dilakukan disana-sini.
 
@@ -41,7 +47,7 @@ Pastikan setidaknya `Go v1.15` sudah terinstall di komputer kamu.
 >
 > Implementasi program yang ada di repositori ini masih belum benar. Salah satu indikasinya adalah ketika kamu mencoba gambar `input_1.jpg` & `input_2.jpg` sebagai input di program maka akan keluar hasilnya, sementara kalau kamu coba gambar `input_3.jpg` tidak akan keluar apa-apa.
 >
-> Kalau implementasi program kamu sudah benar, seharusnya `input_3.jpg` juga akan mengeluarkan hasil.
+> Kalau implementasi program kamu sudah benar, seharusnya `input_3.jpg` juga akan mengeluarkan hasil yang sama dengan `input_1.jpg` karena keduanya identik secara visual.
 
 ## Pertanyaan
 
