@@ -12,7 +12,7 @@ Suatu gambar dikatakan replika dari gambar lain jika gambar tersebut terlihat sa
 
 [<img src="./input/input_3.jpg" width="400"/>](./input/input_3.jpg)
 
-Kedua gambar ini berbeda, namun keduanya memiliki visual yang kurang lebih sama.
+Resolusi dari kedua gambar ini berbeda, namun keduanya memiliki visual yang kurang lebih sama. Karena itulah kedua gambar ini dikatakan sebagai replika antara satu sama lain.
 
 Pihak `TokoGambar` menggunakan sistem yang ada di repositori ini untuk mengecek otentisitas dari suatu gambar. Namun sayangnya sistem ini masih berupa prototipe, sehingga masih banyak perbaikan yang perlu dilakukan disana-sini.
 
