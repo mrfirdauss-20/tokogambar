@@ -1,0 +1,11 @@
+github.com/corona10/goimagehash v1.0.3 h1:NZM518aKLmoNluluhfHGxT3LGOnrojrxhGn63DR/CZA=
+github.com/corona10/goimagehash v1.0.3/go.mod h1:VkvE0mLn84L4aF8vCb6mafVajEb6QYMHl2ZJLn0mOGI=
+github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 h1:zYyBkD/k9seD2A7fsi6Oo2LfFZAehjjQMERAvZLEDnQ=
+github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646/go.mod h1:jpp1/29i3P1S/RLdc7JQKbRpFeM1dOBd8T9ki5s+AY8=
+github.com/vitali-fedulov/hyper v1.0.1 h1:juW5AgxqAVbAAlakTcc1IeO/iqT8R+KdIyia8tz29zE=
+github.com/vitali-fedulov/hyper v1.0.1/go.mod h1:nQqkBaCL7ETNg7c90cbfFeJWoKchMrPejZYr+kiuSQI=
+github.com/vitali-fedulov/images v2.0.1+incompatible h1:9u9f22EXFGwVoBdnQ/YPdSBeRxwRFCqxuH61BhZgc6g=
+github.com/vitali-fedulov/images/v2 v2.1.2 h1:m0QcNqcN7S8yiOELjoBZySZuH08/bb+/idjgjupBnBY=
+github.com/vitali-fedulov/images/v2 v2.1.2/go.mod h1:Uf6xw8bNfbWjRE/qS0kDNvSTchTwohLBZR0AKhmfNWM=
+github.com/vitali-fedulov/images3 v1.0.12 h1:GnQ6DZH6ezTBI6bkXgTjUFwvJa5UnEFryGpsl9E9vww=
+github.com/vitali-fedulov/images3 v1.0.12/go.mod h1:E53TQh4WO/byLuozZvfgJ/JIsSKsfbhnjaOnMAb4ZjM=

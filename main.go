@@ -1,13 +1,16 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
+	"image"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"github.com/vitali-fedulov/images3"
 )
 
 const addr = ":7124"
@@ -83,16 +86,21 @@ func loadDB() ([]dbRecord, error) {
 		dbRecords = append(dbRecords, dbRecord{
 			FileName: filename,
 			Hash:     getHash(b),
+			Ima:	  b,
 		})
 	}
 	return dbRecords, nil
 }
 
 func searchSimilarImages(dbRecords []dbRecord, data []byte) ([]similarImage, error) {
-	hashStr := getHash(data)
+	//hashStr := getHash(data)
+	imag, _, _ := image.Decode(bytes.NewReader(data))
+	icon1 := images3.Icon(imag, "input/")
 	simImages := []similarImage{}
 	for _, record := range dbRecords {
-		if record.Hash == hashStr {
+		ima1,_,_ :=image.Decode(bytes.NewReader(record.Ima))
+		icon2 := images3.Icon(ima1,"images/"+record.FileName)
+		if images3.Similar(icon1,icon2) {
 			simImages = append(simImages, similarImage{
 				FileName:        record.FileName,
 				SimilarityScore: 100.0,
