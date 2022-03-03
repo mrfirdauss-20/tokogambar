@@ -6,6 +6,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	//"github.com/corona10/goimagehash"
 )
 
 type ApiResp struct {
@@ -73,9 +74,8 @@ func (rb searchReqBody) GetByte() ([]byte, error) {
 }
 
 type dbRecord struct {
-	FileName string
-	Hash     string
-	Ima		[]byte
+	FileName string	
+	Ima		 string
 }
 
 type similarImage struct {
