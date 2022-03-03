@@ -10,7 +10,6 @@ import (
 	"log"
 	"net/http"
 	"github.com/corona10/goimagehash"
-	"github.com/agnivade/levenshtein"
 )
 import _ "image/jpeg"
 
@@ -84,11 +83,10 @@ func loadDB() ([]dbRecord, error) {
 		if err != nil {
 			continue
 		}
-		h,_:=goimagehash.PerceptionHash(byteToImg(b))
-		str:= h.ToString()
+
 		dbRecords = append(dbRecords, dbRecord{
 			FileName: filename,
-			Ima:	  str,
+			Ima:	  b,
 		})
 	}
 	return dbRecords, nil
@@ -98,16 +96,15 @@ func searchSimilarImages(dbRecords []dbRecord, data []byte) ([]similarImage, err
 	//hashStr := getHash(data)
 	//imag, _, _ := image.Decode(bytes.NewReader(data))
 	baseHash,_ := goimagehash.PerceptionHash(byteToImg(data))
-	str := baseHash.ToString()
 	simImages := []similarImage{}
-
+	
 	for _, record := range dbRecords {
-		//img,_,_:=image.Decode(bytes.NewReader(record.Ima))
-		distance:=levenshtein.ComputeDistance(str, record.Ima)
+		imgHash,_ := goimagehash.PerceptionHash(byteToImg(record.Ima))
+		distance,_:=baseHash.Distance(imgHash)
 		if distance<5{
 			simImages = append(simImages, similarImage{
 				FileName:        record.FileName,
-				SimilarityScore: (float64) ((len(str)-distance)/len(str)),
+				SimilarityScore: (float64) (distance),
 			})
 			//mt.Println("distance %d",distance)
 		}
