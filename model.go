@@ -91,8 +91,3 @@ type ImageDoc struct{
 func (d *ImageDoc) GetID() string { return d.ID }
 
 func (d *ImageDoc) GetVector() []float64 { return d.Vector }
-
-type Document interface {
-	GetID() string
-	GetVector() []float64
-}
