@@ -24,8 +24,8 @@
         font-family: 'Roboto', sans-serif;
     }
 
-    .imageContainer{
-        display: flex;
+    .container{
+        display: inline-flex;
         flex-wrap: nowrap;
         margin-left:  auto;
         margin-right: auto;
@@ -33,7 +33,7 @@
 
     .card{
         margin: 20px;
-        display: inline-flex;
+        display: block;
     }
 
     .navbar{
@@ -42,6 +42,9 @@
         width: 100%;
         top: 0;
 
+    }
+    img{
+        max-width: 200px;
     }
     </style>
 </head>
@@ -54,7 +57,7 @@
     </div>
     <div class="head">
         <div class="leftH">
-            <img src="./web/images/Logo.png" alt="">
+        
         </div>
         <div class="rightH">
              <h1>Image Replication Finder</h1>
@@ -69,17 +72,27 @@
             <input type="file" accept="image/*" id="inputFile" onchange="handleInputFile(this.files[0])">
         </div>
         <br>
-        <h3>Found Replica:</h3>
+        <h2>Found Replica:</h2>
         <div class="container">
             <div class="card" > 
-                <img id="previewImage" width="200">
+                <h3>Your Image</h3>
+                <img id="previewImage" >
             </div>
-            <div class="card" id="similarImages"></div>
+            <div class="card">
+                <div id="similarImages"></div>
+            </div>
+            
+            
         </div>
         
     </div>
 
     <script>
+        const imaF = document.getElementsByClassId("previewImage")
+        if(img.src==''){
+            
+        }
+        
         function handleInputFile(file) {
             const reader = new FileReader();
             reader.onload = async function() {
@@ -88,6 +101,7 @@
                 // set image in preview
                 const previewImage = document.getElementById("previewImage");
                 previewImage.src = imageData;
+                
                 // fetch similar images
                 const imgs = await fetchSimilarImages(imageData);
                 // update similar images DOM
@@ -129,10 +143,13 @@
                 }
                 // fill in with the new ones
                 images.forEach((value) => {
+                    console.log(value)
                     const node = document.createElement('div');
                     node.innerHTML = `
+                        <h3>Similar Image</h3>
                         <img src="/images/${value.filename}" width="200">
                         <p>${value.filename}</p>
+                        <p>Image Distance: ${value.similarity_score}</p>
                     `
                     domSimilarImages.appendChild(node);
                 });

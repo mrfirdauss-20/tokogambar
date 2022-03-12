@@ -75,10 +75,24 @@ func (rb searchReqBody) GetByte() ([]byte, error) {
 
 type dbRecord struct {
 	FileName string	
-	Ima		 []byte
+	Ima		 []float64
 }
 
 type similarImage struct {
 	FileName        string  `json:"filename"`
 	SimilarityScore float64 `json:"similarity_score"`
+}
+
+type ImageDoc struct{
+	ID		string
+	Vector 	[]float64
+}
+
+func (d *ImageDoc) GetID() string { return d.ID }
+
+func (d *ImageDoc) GetVector() []float64 { return d.Vector }
+
+type Document interface {
+	GetID() string
+	GetVector() []float64
 }

@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"github.com/corona10/goimagehash"
+	"github.com/riandyrn/go-knn"
 )
 import _ "image/jpeg"
 
@@ -64,7 +65,7 @@ func main() {
 	}
 }
 
-func loadDB() ([]dbRecord, error) {
+func loadDB() (*(knn.KNN), error) {
 	basePath := "./images"
 	infos, err := ioutil.ReadDir(basePath)
 	if err != nil {
@@ -77,54 +78,54 @@ func loadDB() ([]dbRecord, error) {
 		}
 		filenames = append(filenames, info.Name())
 	}
-	var dbRecords []dbRecord
+	knn := knn.NewKNN(knn.Configs{
+		VectorDimension: 18,
+		NumHashTable:    3,
+		NumHyperplane:   3,
+		SlotSize:        5,
+	})
+	docs := []ImageDoc{}
 	for _, filename := range filenames {
 		b, err := ioutil.ReadFile(basePath + "/" + filename)
 		if err != nil {
 			continue
 		}
-
-		dbRecords = append(dbRecords, dbRecord{
-			FileName: filename,
-			Ima:	  b,
+		hash,_:=goimagehash.PerceptionHash(byteToImg(b))
+		arr :=  srtringBinToArrFloat(hash.ToString())
+		docs=  append(docs,ImageDoc{
+			ID: filename,
+			Vector: arr,
 		})
 	}
-	return dbRecords, nil
+	for i:=0;i<len(docs);i++{
+		err:=knn.Add(&docs[i])
+		if err != nil{
+			log.Fatalf("unable to add new document to knn index due: %v",err)
+		}
+	}
+	
+	return knn, nil
 }
 
-func searchSimilarImages(dbRecords []dbRecord, data []byte) ([]similarImage, error) {
-	//hashStr := getHash(data)
+func searchSimilarImages(knn *(knn.KNN), data []byte) ([]similarImage, error) {
+	//hashStr := getHash(data)	
 	//imag, _, _ := image.Decode(bytes.NewReader(data))
 	baseHash,_ := goimagehash.PerceptionHash(byteToImg(data))
+	vec := srtringBinToArrFloat(baseHash.ToString())
+	resultDocs, err:=knn.Query(vec,1)
+	if err!=nil{
+		log.Printf("unable to query documents due:%v",err)
+	}
 	simImages := []similarImage{}
-	
-	for _, record := range dbRecords {
-		imgHash,_ := goimagehash.PerceptionHash(byteToImg(record.Ima))
-		distance,_:=baseHash.Distance(imgHash)
-		if distance<5{
-			simImages = append(simImages, similarImage{
-				FileName:        record.FileName,
-				SimilarityScore: (float64) (distance),
-			})
-			//mt.Println("distance %d",distance)
-		}
+	for _, resultDoc := range resultDocs {
+		simImages = append(simImages, similarImage{
+				FileName:        resultDoc.Document.GetID(),
+				SimilarityScore:  resultDoc.Distance,
+		})
 	}
 	return simImages, nil
 }
 
-/*
-func getHash(data []byte) ImageHash {
-	ima,_,_:=image.Decode(bytes.NewReader(data))
-	has,_:=goimagehash.PerceptionHash(ima)
-	h:=has.GetHash()
-	k:=has.GetKind()
-	imageHash:= ImageHash{
-		hash: h,
-		kind: k,
-	}
-	return imageHash
-}
-*/
 
 func byteToImg (data []byte) image.Image{
 	img, err := jpeg.Decode(bytes.NewReader(data))
@@ -133,4 +134,13 @@ func byteToImg (data []byte) image.Image{
 		fmt.Println("di sini")
 	}	
 	return img
+}
+
+func srtringBinToArrFloat(str string) []float64{
+	var ret[]float64
+	for _, run := range str{
+		ret=append(ret,float64(run)-float64('0'))
+	}
+
+	return ret
 }
