@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"github.com/corona10/goimagehash"
 	"github.com/riandyrn/go-knn"
+	"strconv"
 )
 import _ "image/jpeg"
 
@@ -79,7 +80,7 @@ func loadDB() (*(knn.KNN), error) {
 		filenames = append(filenames, info.Name())
 	}
 	knn := knn.NewKNN(knn.Configs{
-		VectorDimension: 18,
+		VectorDimension: 64,
 		NumHashTable:    3,
 		NumHyperplane:   3,
 		SlotSize:        5,
@@ -91,7 +92,7 @@ func loadDB() (*(knn.KNN), error) {
 			continue
 		}
 		hash,_:=goimagehash.PerceptionHash(byteToImg(b))
-		arr :=  srtringBinToArrFloat(hash.ToString())
+		arr :=  srtringBinToArrFloat(strconv.FormatUint(hash.GetHash(),2))
 		docs=  append(docs,ImageDoc{
 			ID: filename,
 			Vector: arr,
@@ -111,16 +112,17 @@ func searchSimilarImages(knn *(knn.KNN), data []byte) ([]similarImage, error) {
 	//hashStr := getHash(data)	
 	//imag, _, _ := image.Decode(bytes.NewReader(data))
 	baseHash,_ := goimagehash.PerceptionHash(byteToImg(data))
-	vec := srtringBinToArrFloat(baseHash.ToString())
+	vec := srtringBinToArrFloat(strconv.FormatUint(baseHash.GetHash(),2))
 	resultDocs, err:=knn.Query(vec,1)
 	if err!=nil{
 		log.Printf("unable to query documents due:%v",err)
 	}
 	simImages := []similarImage{}
 	for _, resultDoc := range resultDocs {
+		similarity := 1-resultDoc.Distance/64
 		simImages = append(simImages, similarImage{
 				FileName:        resultDoc.Document.GetID(),
-				SimilarityScore:  resultDoc.Distance,
+				SimilarityScore:  similarity,
 		})
 	}
 	return simImages, nil
